@@ -1,0 +1,37 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <title>Activity 2: Change the image</title>
+  </head>
+  <body>
+    <h1>Activity 2: Change the image</h1>
+    <p>Change the following image with changed.png only if changed.png exists in the server</p>
+    <img id ="imagen1" src="./default.jpg" alt="just an image">
+	  <script src="https://code.jquery.com/jquery-3.2.1.min.js"  crossorigin="anonymous"></script>
+	<script>
+	var url = "./changed.jpg"
+	function existeUrl(url) {
+   var req = new XMLHttpRequest();
+  req.open('GET', url, true);
+	req.onreadystatechange = function (aEvt) {
+		if (req.readyState == 4) {
+			if(req.status == 200)
+				dump(req.responseText);
+			else
+				dump("Error loading page\n");
+		}
+	};
+req.send();
+   return req.status!=404;
+}
+	if(existeUrl(url)==true){
+		$("#imagen1").attr("src","./changed.jpg");
+	}
+	
+	</script>
+  </body>
+</html>

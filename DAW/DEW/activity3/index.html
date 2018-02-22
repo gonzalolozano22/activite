@@ -1,0 +1,54 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <title>Activity 3: Forms &amp; click event</title>
+  </head>
+  <body>
+    <h1>Activity 3: Forms &amp; click event</h1>
+    <p>Add a form with two fields ("Rows" and "Columns") and a button ("Generate Table"). When the button is clicked it have to:</p>
+      <ol>
+        <li>remove a table#generated if exists </li>
+        <li>Add a table with as many rows and columns both Rows and Columns fields indicate</li>
+        <li>Each table cell must contain a text like: "Row: X, Col: Y"</li>
+      </ol>
+
+		<form>
+	ROWS <input type="text" id="ROWS" value=""><br><br>
+	COLUMNS  <input type="text"  id="COLUMNS" value="">
+	<br><br><input type="button"  id="botton" value="GENERATE">
+	</form>
+			
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+	<script src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-3.2.1.min.js"></script>
+
+		<div id="table"></div>
+		
+			<script type="text/javascript">
+			$(document).ready(function(){
+			$("#botton").click(function(){
+			$("#tabla").remove();
+			$("#table").append('<table id="tabla" border="1"></table>');
+		var fila = $('#ROWS').val();
+		var columna = $('#COLUMNS').val()
+		for(var i=0; i<fila; i++){
+			$("#tabla").append("<tr>");
+			for(var j=0; j<columna; j++){
+				$("#tabla").append("<td>"+i+","+j+"</td>");
+			}
+		}
+		$("#tabla").append("</tr>");
+		
+		
+	
+	});
+	});
+				
+
+	</script>
+
+  </body>
+</html>
