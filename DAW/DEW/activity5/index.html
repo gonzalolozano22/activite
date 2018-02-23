@@ -30,62 +30,57 @@
       <li>When 1 audio ends the following one must estart playing automatically</li>
     </ul>
 
-	<ul id ="playlist">
-        <li class="active"><a href="gatos.mp3">gatos</a></li>
-        <li><a href="Gallo.mp3">Gallo</a></li>
-        <li><a href="grillo.mp3">grillo</a></li>
-      
-    </ul>
-    <audio id="audio"  controls  id="audioPlayer">>
-     Your browser does not support the audio tag.
-    </audio>
+	<ol id="playList">
+      <li class="action"><a href="gatos.mp3">gatos</a></li>
+      <li><a href="Gallo.mp3">Gallo</a></li>
+      <li><a href="grillo.mp3">grillo</a></li>
+    </ol>
+    <audio src="" controls  id="audioPlayer">
+	</audio>
     <div class="controls">
-      <div class="play"><i class="fa fa-play"></i></div>
-      <div class="backward"><i class="fa fa-step-backward"></i></div>
-      <div class="fordward"><i class="fa fa-step-forward"></i></div>
+        <div id="play" ><i class="fa fa-play"></i></div>
+		<div id="pause" ><i class="fa fa-pause"></i></div>
+        <div id="backward" ><i class="fa fa-step-backward"></i></div>
+        <div id="fordward" ><i class="fa fa-step-forward"></i></div>
     </div>
-	<script src="https://code.jquery.com/jquery-2.2.0.js"> 
-	</script>
-	
-	<script> 
-	var audio;
-	var playlist;
-	var tracks;
-	var current;
-	
-	audioPlayer();
-function audioPlayer(){
-    actual = 0;
-    audio = $('#audio');
-    playlist = $('#playlist');
-    tracks = playlist.find('li a');
-    len = tracks.length - 1;
-    audio[0].volume = .10;
-    audio[0].play();
-    playlist.find('a').click(function(e){
-        e.preventDefault();
-        link = $(this);
-        actual = link.parent().index();
-        run(link, audio[0]);
-    });
-    audio[0].addEventListener('ended',function(e){
-        actual++;
-        if(current == len){
-            current = 0;
-            link = playlist.find('a')[0];
-        }else{
-            link = playlist.find('a')[current];    
-        }
-        run($(link),audio[0]);
-    });
-}
-function run(link, player){
-        player.src = link.attr('href');
-        par = link.parent();
-        par.addClass('active').siblings().removeClass('active');
-        audio[0].load();
-        audio[0].play();
-}
+      <script src="https://code.jquery.com/jquery-2.2.0.js"></script>
+      <script>
+          
+        audioPlayer();   
+        
+          
+        function audioPlayer(){
+            var actual = 0;
+
+            $("#playList li a").click(function(e){
+                e.preventDefault();
+                $("#audioPlayer")[0].src = this;
+                $("#audioPlayer")[0].play();
+                $("#playList li").removeClass("action");
+                currentSong = $(this).parent().index();
+                $(this).parent().addClass("action");
+            }); 
+            
+            $("#audioPlayer")[0].addEventListener("ended", function(){
+                actual++;
+                if(actual == $("#playList li a").length){
+                   actual = 0;
+                }
+                $("#playList li:eq("+actual+")");
+                $("#audioPlayer")[0].src = $("#playList li a")[actual].href;
+                $("#audioPlayer")[0].play();
+            });
+			
+           document.getElementById("play").addEventListener("click", function(){
+                $("#audioPlayer")[0].play();
+            });
+            
+            
+           document.getElementById("pause").addEventListener("click", function(){
+                $("#audioPlayer")[0].pause();
+            });
+          
+        }    
 	</script>
 	
 
